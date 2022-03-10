@@ -1,6 +1,6 @@
-package com.team.amazon;
+package com.amazon;
 
-import ui.ProductUI;
+import com.amazon.ui.ProductUI;
 
 public class AmazonApp {
 

@@ -1,6 +1,4 @@
-package ui;
-
-import model.Product;
+package com.amazon.ui;
 
 import java.util.Scanner;
 

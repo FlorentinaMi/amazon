@@ -1,21 +1,17 @@
-package model;
+package com.amazon.model;
 
 public abstract class User {
     private int id;
     private String userEmail;
     private String password;
-    private String fullName;
-    private int phone;
-    private Address address;
+    private String address;
 
-    public User(int id, String userEmail, String password, String fullName, int phone, Address address) {
-        this.id = id;
+    public User(String userEmail, String password, String address) {
         this.userEmail = userEmail;
         this.password = password;
-        this.fullName = fullName;
-        this.phone = phone;
         this.address = address;
     }
+
 
     public int getId() {
         return id;
@@ -41,27 +37,11 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
-
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 }
