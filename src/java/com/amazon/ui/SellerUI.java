@@ -2,6 +2,7 @@ package com.amazon.ui;
 
 import com.amazon.services.ServiceSeller;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class SellerUI {
@@ -11,7 +12,7 @@ public class SellerUI {
     // public static int Product_Delete = 3;
     // static int Product_View = 4;
 
-public void run() {
+public void run() throws IOException {
 
     while (true) {
         System.out.println(buildMenu());
