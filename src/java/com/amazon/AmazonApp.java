@@ -1,6 +1,6 @@
 package com.amazon;
 
-import com.amazon.dao.ProductDAO;
+import com.amazon.services.ServiceSeller;
 import com.amazon.ui.ProductUI;
 
 import java.io.IOException;
@@ -11,7 +11,8 @@ public class AmazonApp {
 
     public static void main(String[] args) throws IOException {
         // product.searchProductField();
-        ProductDAO.saveProduct();
+        ServiceSeller serviceSeller =  new ServiceSeller();
+        serviceSeller.addProducts();
     }
 
 }

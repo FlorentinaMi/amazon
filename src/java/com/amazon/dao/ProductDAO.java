@@ -1,20 +1,25 @@
 package com.amazon.dao;
 
+import com.amazon.model.Product;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.amazon.services.ServiceSeller.*;
 
 public class ProductDAO {
 
-    public static void saveProduct() throws IOException {
+    public void saveProduct(Product product) throws IOException {
         Path filePath = Paths.get("C:", "Users", "Dani", "Desktop", "EchipaAmazon", "amazon", "src", "resources", "Products.txt");
-        Files.write(filePath, name, description, price, stock);
+        Files.write(filePath, productFileFormat(product).getBytes());
         System.out.println(filePath + " Content was added");
     }
 
+    public String productFileFormat(Product product) {
+        return product.getName() + "\n" + product.getDescription() + "\n" + product.getPrice() + "\n" + product.getStock();
     }
+
+}
 
 

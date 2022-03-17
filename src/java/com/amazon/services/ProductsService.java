@@ -11,7 +11,7 @@ public class ProductsService {
 
     public void saveProduct(Product product) throws IOException {
 
-        productDAO.saveProduct();
+        productDAO.saveProduct(product);
 
     }
 

@@ -1,15 +1,16 @@
 package com.amazon.services;
 
+import com.amazon.dao.ProductDAO;
+import com.amazon.model.Product;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ServiceSeller {
 
-    public static String name;
-    public static String description;
-    public static String price;
-    public static String stock;
+    private ProductDAO productDAO = new ProductDAO();
 
-    public static byte[] addProducts() {
+    public byte[] addProducts() throws IOException {
         Scanner input = new Scanner(System.in);
         System.out.println("Product name:");
         String name = input.nextLine();
@@ -18,13 +19,16 @@ public class ServiceSeller {
         String description = input.nextLine();
 
         System.out.println("Price");
-        String price = input.nextLine();
+        Float price = input.nextFloat();
 
         System.out.println("Stock");
-        String stock = input.nextLine();
+        Integer stock = input.nextInt();
         input.close();
 
+        Product product = new Product(name, description, price, stock);
+        productDAO.saveProduct(product);
         return new byte[0];
+
     }
 
 
