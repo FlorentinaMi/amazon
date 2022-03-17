@@ -27,8 +27,8 @@ public class ServiceSeller {
 
         Product product = new Product(name, description, price, stock);
         productDAO.saveProduct(product);
-        return new byte[0];
 
+        return new byte[0];
     }
 
 

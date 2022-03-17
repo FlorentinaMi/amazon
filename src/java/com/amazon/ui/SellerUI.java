@@ -20,7 +20,8 @@ public void run() throws IOException {
         switch (option) {
             case 1:
                 System.out.println("Add a product be completing the required information");
-                //ServiceSeller.addProducts();
+                ServiceSeller serviceSeller =  new ServiceSeller();
+                serviceSeller.addProducts();
                 break;
             case 2:
                 System.out.println("Update your product");
@@ -37,9 +38,7 @@ public void run() throws IOException {
             case 0:
                 System.out.println("Exit!");
                 break;
-
             }
-
 
         }
 
