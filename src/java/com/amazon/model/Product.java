@@ -7,6 +7,13 @@ public class Product {
     private float price;
     private int stock;
 
+    public Product(String name, String description, float price, int stock) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+    }
+
     public Product(int id, String name, String smallDescription, float price, int stock) {
         this.id = id;
         this.name = name;
