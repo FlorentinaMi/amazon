@@ -21,9 +21,7 @@ public abstract class User {
         this.id = id;
     }
 
-    public String getUserEmail() {
-        return userEmail;
-    }
+    public String getUserEmail() {return userEmail;}
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
