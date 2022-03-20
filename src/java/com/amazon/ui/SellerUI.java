@@ -1,6 +1,8 @@
 package com.amazon.ui;
 
-import com.amazon.services.ServiceSeller;
+import com.amazon.services.AddProduct;
+import com.amazon.services.UpdateProduct;
+import com.amazon.services.ViewProduct;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -20,20 +22,20 @@ public void run() throws IOException {
         switch (option) {
             case 1:
                 System.out.println("Add a product be completing the required information");
-                ServiceSeller serviceSeller =  new ServiceSeller();
-                serviceSeller.addProducts();
+                AddProduct addProduct =  new AddProduct();
+                addProduct.addProducts();
                 break;
             case 2:
                 System.out.println("Update your product");
-                ServiceSeller.updateProducts();
+                UpdateProduct.productUpdate();
                 break;
             case 3:
                 System.out.println("Delete your product");
-                ServiceSeller.deleteProducts();
+
                 break;
             case 4:
-                System.out.println("View all your products");
-                ServiceSeller.viewProducts();
+                System.out.println("View all your listed products");
+                ViewProduct.viewListProducts();
                 break;
             case 0:
                 System.out.println("Exit!");
@@ -55,7 +57,7 @@ public void run() throws IOException {
                 + "1. Add a product to sell \n"
                 + "2. Update existing products for selling \n"
                 + "3. Delete existing products for selling \n"
-                + "4. View your products for sell \n"
+                + "4. View your listed products for sell \n"
                 + "0. Exit \n";
     }
 }

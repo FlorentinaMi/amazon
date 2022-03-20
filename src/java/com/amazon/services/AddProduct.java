@@ -6,11 +6,11 @@ import com.amazon.model.Product;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ServiceSeller {
+public class AddProduct {
 
     private ProductDAO productDAO = new ProductDAO();
 
-    public byte[] addProducts() throws IOException {
+    public void addProducts() throws IOException {
         Scanner input = new Scanner(System.in);
         System.out.println("Product name:");
         String name = input.nextLine();
@@ -23,22 +23,10 @@ public class ServiceSeller {
 
         System.out.println("Stock");
         Integer stock = input.nextInt();
-        input.close();
 
         Product product = new Product(name, description, price, stock);
         productDAO.saveProduct(product);
 
-        return new byte[0];
-    }
-
-
-    public static void viewProducts() {
-    }
-
-    public static void deleteProducts() {
-    }
-
-    public static void updateProducts() {
     }
 
 }
