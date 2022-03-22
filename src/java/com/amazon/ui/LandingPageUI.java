@@ -1,12 +1,14 @@
 package com.amazon.ui;
 
+import com.amazon.services.LoginService;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class LandingPageUI {
     private Scanner keyboardInput = new Scanner(System.in);
-    //    private LoginPageUI loginPageUI = new LoginPageUI();
     private SignUpUI signUpUI = new SignUpUI();
+    private LoginService loginService = new LoginService();
 
     public void startUI() throws IOException {
         System.out.println("Welcome to the landing page!");
@@ -22,7 +24,7 @@ public class LandingPageUI {
             userInput = keyboardInput.next();
             switch (userInput) {
                 case "1":
-                    //    loginPageUI.startUI();
+                    loginService.loginService();
                     break;
                 case "2":
                     signUpUI.startUI();
