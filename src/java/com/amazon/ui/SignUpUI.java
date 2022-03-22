@@ -1,29 +1,26 @@
 package com.amazon.ui;
 
-import com.amazon.model.Buyer;
-import com.amazon.model.Seller;
-import com.amazon.model.User;
-import com.amazon.services.UserService;
+import com.amazon.controller.UserController;
+import com.amazon.exceptions.UserInputException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
+
 public class SignUpUI {
-    private UserService userService = new UserService();
-    Scanner keyboardScanner = new Scanner(System.in);
+    private Scanner keyboardScanner = new Scanner(System.in);
+    private UserController userController = new UserController();
 
-    //logica de cules date
-    public void startUI() {
+    public void startUI() throws IOException {
         showWelcomeMessage();
-        User user = getUserInfo();
-        // save to db;
+        saveUser();
     }
-
 
     private void showWelcomeMessage() {
-        System.out.println("Sign UP Form:");
+        System.out.println("Welcome to Amazon: Please fill in the data for your new account in the following fields!");
     }
 
-    private User getUserInfo() {
+    public void saveUser() throws IOException {
         String email = getEmail();
         String password = getPassword();
         String address = getAddress();
@@ -32,12 +29,10 @@ public class SignUpUI {
             System.out.println("Not a valid role!");
             role = getRole();
         }
-        if (role.equals("seller")) {
-            Seller seller = new Seller(email, password, address);
-            return seller;
-        } else {
-            Buyer buyer = new Buyer(email, password, address);
-            return buyer;
+        try {
+            userController.saveUser(email, password, address, role);
+        } catch (UserInputException ex){
+            System.out.println("Invalid input, user not saved!");
         }
     }
 

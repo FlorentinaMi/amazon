@@ -7,7 +7,7 @@ public abstract class User {
     private String address;
     private String role;
 
-    public User(String userEmail, String password, String address) {
+    public User(String userEmail, String password, String address, String role) {
         this.userEmail = userEmail;
         this.password = password;
         this.address = address;

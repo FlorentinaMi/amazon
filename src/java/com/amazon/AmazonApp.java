@@ -1,5 +1,6 @@
 package com.amazon;
 
+import com.amazon.ui.LandingPageUI;
 import com.amazon.ui.ProductUI;
 import com.amazon.ui.SellerUI;
 
@@ -10,6 +11,8 @@ public class AmazonApp {
     public static ProductUI product;
 
     public static void main(String[] args) throws IOException {
+        LandingPageUI landingPageUI = new LandingPageUI();
+        landingPageUI.startUI();
 
         SellerUI sellerUI = new SellerUI();
         sellerUI.run();

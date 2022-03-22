@@ -14,7 +14,7 @@ public class ProductDAO {
     private Path productSequenceFile = Paths.get("C:", "Users", "Dani", "Desktop", "EchipaAmazon", "amazon", "src", "resources", "ProductSequel.txt");
 
     public void saveProduct(Product product) throws IOException {
-        Path filePath = Paths.get("C:", "Users", "Dani", "Desktop", "EchipaAmazon", "amazon", "src", "resources", "Products.txt");
+        Path filePath = Paths.get("src/resources/Products.txt");
         Files.write(filePath, productFileFormat(product).getBytes(), StandardOpenOption.APPEND);
         System.out.println(filePath + " Content was added");
     }
