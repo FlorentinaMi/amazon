@@ -12,8 +12,8 @@ public abstract class User {
         this.password = password;
         this.address = address;
         this.role = role;
-
     }
+
 
     public int getId() {
         return id;
@@ -54,5 +54,4 @@ public abstract class User {
     public void setRole(String role) {
         this.role = role;
     }
-
 }

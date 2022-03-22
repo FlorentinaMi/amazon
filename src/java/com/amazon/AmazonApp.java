@@ -1,17 +1,16 @@
 package com.amazon;
 
+import com.amazon.ui.LandingPageUI;
 import com.amazon.ui.SellerUI;
 
 import java.io.IOException;
 
 public class AmazonApp {
 
-    // public static ProductUI product;
-
     public static void main(String[] args) throws IOException {
-        // product.searchProductField();
-        SellerUI sellerUI = new SellerUI();
-        sellerUI.run();
+        LandingPageUI landingPageUI = new LandingPageUI();
+        landingPageUI.startUI();
+
 
     }
 
