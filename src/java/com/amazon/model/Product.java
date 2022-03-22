@@ -14,6 +14,13 @@ public class Product {
         this.stock = stock;
     }
 
+    public Product(String name, String description, String price, String stock) {
+        this.name = name;
+        this.description = description;
+        this.price = Float.parseFloat(price);
+        this.stock = Integer.parseInt(stock);
+    }
+
     public Product(int id, String name, String smallDescription, float price, int stock) {
         this.id = id;
         this.name = name;

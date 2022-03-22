@@ -20,7 +20,7 @@ public class ProductDAO {
     }
 
     public String productFileFormat(Product product) throws IOException {
-        return "\n" +"\n" + "ID number: A" +  getNewId() + "; " + "1. Product Name: " + product.getName()  + "; " + "2. Product Description: " + product.getDescription() + "; " + "3. Product Price: " + product.getPrice() + "; " +"4. Product Stock: " + product.getStock();
+        return "\n" + "Product ID: A" + getNewId() + product.getId() + "; " + "1. Product Name: " + product.getName() + "; " + "2. Product Description: " + product.getDescription() + "; " + "3. Product Price: " + product.getPrice() + "; " + "4. Product Stock: " + product.getStock();
     }
 
     public String getNewId() throws IOException {

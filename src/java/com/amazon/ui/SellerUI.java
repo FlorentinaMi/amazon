@@ -1,6 +1,7 @@
 package com.amazon.ui;
 
 import com.amazon.services.AddProduct;
+import com.amazon.services.DeleteProduct;
 import com.amazon.services.UpdateProduct;
 import com.amazon.services.ViewProduct;
 
@@ -14,36 +15,36 @@ public class SellerUI {
     // public static int Product_Delete = 3;
     // static int Product_View = 4;
 
-public void run() throws IOException {
+    public void run() throws IOException {
 
-    while (true) {
-        System.out.println(buildMenu());
-        int option = readInt();
-        switch (option) {
-            case 1:
-                System.out.println("Add a product be completing the required information");
-                AddProduct addProduct =  new AddProduct();
-                addProduct.addProducts();
-                break;
-            case 2:
-                System.out.println("Update your product");
-                UpdateProduct.productUpdate();
-                break;
-            case 3:
-                System.out.println("Delete your product");
-
-                break;
-            case 4:
-                System.out.println("View all your listed products");
-                ViewProduct.viewListProducts();
-                break;
-            case 0:
-                System.out.println("Exit!");
-                break;
+        while (true) {
+            System.out.println(buildMenu());
+            int option = readInt();
+            switch (option) {
+                case 1:
+                    System.out.println("Add a product be completing the required information");
+                    AddProduct addProduct = new AddProduct();
+                    addProduct.addProducts();
+                    break;
+                case 2:
+                    System.out.println("Update your product");
+                UpdateProduct updateProduct = new UpdateProduct();
+                updateProduct.productUpdate();
+                    break;
+                case 3:
+                    System.out.println("Delete your product");
+                    DeleteProduct deleteProduct = new DeleteProduct();
+                    deleteProduct.deleteProduct();
+                    break;
+                case 4:
+                    System.out.println("View all your listed products");
+                    ViewProduct.viewListProducts();
+                    break;
+                case 0:
+                    System.out.println("Log out!");
+                    break;
             }
-
         }
-
     }
 
     private static int readInt() {

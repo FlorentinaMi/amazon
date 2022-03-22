@@ -12,7 +12,7 @@ public class ViewProduct {
         Path filePath = Paths.get("C:", "Users", "Dani", "Desktop", "EchipaAmazon", "amazon", "src", "resources", "Products.txt");
         List<String> lines = Files.readAllLines(filePath);
         for (String line : lines) {
-            System.out.println(line);
+            System.out.println(line + "\n");
         }
     }
 }

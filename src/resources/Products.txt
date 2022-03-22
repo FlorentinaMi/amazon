@@ -1,6 +1,6 @@
+Product ID: A17; 1. Product Name: uuuihhjj; 2. Product Description: asad; 3. Product Price: 1.0; 4. Product Stock: 7
+Product ID: A19; 1. Product Name: equals; 2. Product Description: replace contain with equals; 3. Product Price: 50.0; 4. Product Stock: 5
+Product ID: A20; 1. Product Name: new1; 2. Product Description: NreCOool; 3. Product Price: 120.0; 4. Product Stock: 40
 
-ID number: A17; 1. Product Name: uuuihhjj; 2. Product Description: asad; 3. Product Price: 1.0; 4. Product Stock: 7
 
-ID number: A18; 1. Product Name: ; 2. Product Description: ; 3. Product Price: 244.0; 4. Product Stock: 5
-
-ID number: A19; 1. Product Name: Smart; 2. Product Description: Very Smart; 3. Product Price: 30.0; 4. Product Stock: 3
+Product ID: A220; 1. Product Name: asadffff; 2. Product Description: ff; 3. Product Price: 20.0; 4. Product Stock: 7
