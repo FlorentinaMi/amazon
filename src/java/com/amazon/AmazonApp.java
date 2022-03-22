@@ -11,8 +11,8 @@ public class AmazonApp {
         LandingPageUI landingPageUI = new LandingPageUI();
         landingPageUI.startUI();
 
-        SellerUI sellerUI = new SellerUI();
-        sellerUI.run();
+       // SellerUI sellerUI = new SellerUI();
+      //  sellerUI.run();
 
     }
 

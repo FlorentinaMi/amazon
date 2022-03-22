@@ -1,4 +1,1 @@
-
-1;fsdf;dsf;dsf;buyer
-2;sdf;dfg;df;seller
-3;sad;dsf;ds;seller
+1;dan;dan;dan;seller

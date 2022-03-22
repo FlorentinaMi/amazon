@@ -11,8 +11,8 @@ import java.nio.file.StandardOpenOption;
 import static java.nio.file.Files.write;
 
 public class UserDao {
-    private Path pathFile = Paths.get("src/resources/Users.txt");
-    private Path userSequenceFile = Paths.get("src/resources/UserSequence.txt");
+    private Path pathFile = Paths.get("C:", "Users", "Dani", "Desktop", "EchipaAmazon", "amazon", "src", "resources", "Users.txt");
+    private Path userSequenceFile = Paths.get("C:", "Users", "Dani", "Desktop", "EchipaAmazon", "amazon", "src", "resources", "UserSequence.txt");
 
     public void saveUser(User user) throws IOException {
         write(pathFile, userFileFormat(user).getBytes(), StandardOpenOption.APPEND);

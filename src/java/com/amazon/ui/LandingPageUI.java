@@ -22,7 +22,7 @@ public class LandingPageUI {
             userInput = keyboardInput.next();
             switch (userInput) {
                 case "1":
-//                    loginPageUI.startUI();
+                    //    loginPageUI.startUI();
                     break;
                 case "2":
                     signUpUI.startUI();
