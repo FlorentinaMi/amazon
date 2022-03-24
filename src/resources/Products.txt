@@ -1,4 +1,6 @@
-
-Product ID: A230; 1. Product Name: No Space ?; 2. Product Description: Space ?; 3. Product Price: 120.0; 4. Product Stock: 10
-Product ID: A240; 1. Product Name:  Why 0 ?; 2. Product Description: Why?; 3. Product Price: 110.0; 4. Product Stock: 13
-Product ID: A250; 1. Product Name: asdf; 2. Product Description: fd; 3. Product Price: 130.0; 4. Product Stock: 25
+46; 2; dan; dan; 1000.0; 10
+47; 2; GOOD; asd; 100.0; 1
+48; 2; fgh; hgf; 50.0; 6
+49; 1; dan; dan; 1000.0; 10
+50; 1; GOOD; asd; 100.0; 1
+51; 1; new; new; 700.0; 70

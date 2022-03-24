@@ -2,6 +2,7 @@ package com.amazon.services;
 
 import com.amazon.dao.ProductDAO;
 import com.amazon.model.Product;
+import com.amazon.security.CurrentUser;
 import com.amazon.ui.SellerUI;
 
 import java.io.*;
@@ -13,22 +14,24 @@ import java.util.Scanner;
 
 public class ProductsService {
 
+    private Path filePath = Paths.get("src/resources/Products.txt");
     private ProductDAO productDAO = new ProductDAO();
+    private String accountID = String.valueOf(CurrentUser.get().getId());
     Scanner console = new Scanner(System.in);
 
     public void addProducts() throws IOException {
-
+        Scanner input =  new Scanner(System.in);
         System.out.println("Product name:");
-        String name = console.nextLine();
+        String name = input.nextLine();
 
         System.out.println("Product description");
-        String description = console.nextLine();
+        String description = input.nextLine();
 
         System.out.println("Price");
-        Float price = console.nextFloat();
+        Float price = input.nextFloat();
 
         System.out.println("Stock");
-        Integer stock = console.nextInt();
+        Integer stock = input.nextInt();
 
         Product product = new Product(name, description, price, stock);
         productDAO.saveProduct(product);
@@ -36,11 +39,10 @@ public class ProductsService {
 
     public void deleteProduct() throws IOException {
 
-        Path filePath = Paths.get("C:", "Users", "Dani", "Desktop", "EchipaAmazon", "amazon", "src", "resources", "Products.txt");
         viewListProducts();
 
         System.out.println("Enter product ID you want to delete: ");
-        String pIDToRemove = "Product ID: " + console.nextLine();
+        String pIDToRemove = console.nextLine();
 
         File originalFile = new File(String.valueOf(filePath));
         BufferedReader br = new BufferedReader(new FileReader(originalFile));
@@ -49,30 +51,38 @@ public class ProductsService {
         PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
 
         String line;
-
+        boolean check = false;
         while ((line = br.readLine()) != null) {
             String[] split = line.split("; ");
             String productID = split[0];
-            if (!productID.equals(pIDToRemove)) {
+            String fileAccountId = split[1];
+            boolean condition = fileAccountId.equals(accountID) && productID.equals(pIDToRemove);
+            if (!condition) {
                 pw.write(line + "\n");
             }
+            if (condition) {
+                System.out.println("The product is removed.");
+                check = true;
+            }
+        }
+        if (!check) {
+            System.err.println("The Product ID could not be found. Please try again.");
         }
         pw.close();
         br.close();
 
         if (!originalFile.delete()) {
-            System.out.println("Could not delete file");
+            System.out.println("Could not delete file.");
         }
 
         if (!tempFile.renameTo(originalFile))
-            System.out.println("Could not rename file");
+            System.out.println("Could not rename file.");
     }
 
     public void productUpdate() throws IOException {
         viewListProducts();
-        Path filePath = Paths.get("C:", "Users", "Dani", "Desktop", "EchipaAmazon", "amazon", "src", "resources", "Products.txt");
         System.out.print("Enter product ID you want to update : ");
-        String pID = "Product ID: " + console.nextLine();
+        String pID = console.nextLine();
 
         while (true) {
             File originalFile = new File(String.valueOf(filePath));
@@ -81,26 +91,26 @@ public class ProductsService {
             File tempFile = new File("tempfile.txt");
             PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
 
-            System.out.println(buildMenu());
+            System.out.println(buildProductUpdateMenu());
             int option = console.nextInt();
             switch (option) {
                 case 1:
-                    System.out.println("Enter the new stock: ");
-                    stockUpdate(console.nextInt(), br, pID, pw);
-                    break;
-                case 2:
-                    System.out.println("Enter the new price: ");
-                    priceUpdate(console.nextFloat(), br, pID, pw);
-                    break;
-                case 3:
                     System.out.println("Enter the new product name: ");
                     productNameUpdate(br, pID, pw);
                     break;
-                case 4:
+                case 2:
                     System.out.println("Enter the new product description: ");
                     productDescriptionUpdate(br, pID, pw);
                     break;
-                case 5:
+                case 3:
+                    System.out.println("Enter the new price: ");
+                    priceUpdate(console.nextFloat(), br, pID, pw);
+                    break;
+                case 4:
+                    System.out.println("Enter the new stock: ");
+                    stockUpdate(console.nextInt(), br, pID, pw);
+                    break;
+                case 0:
                     System.out.println("Go Back");
                     SellerUI sellerUI = new SellerUI();
                     sellerUI.run();
@@ -119,57 +129,13 @@ public class ProductsService {
 
     }
 
-    private String buildMenu() {
+    private String buildProductUpdateMenu() {
         return "Please select what you want to update: \n"
-                + "1. Update your stock \n"
-                + "2. Update your Price \n"
-                + "3. Update your product name \n"
-                + "4. Update your product description \n"
-                + "0. Go back to main menu \n";
-    }
-
-    private void stockUpdate(int stock, BufferedReader br, String pID, PrintWriter pw) throws IOException {
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] split = line.split("; ");
-            String idCode = split[0];
-            if (idCode.equals(pID)) {
-                String stockUpdate = split[4];
-                String prodNameUpdate = split[1];
-                String prodDescription = split[2];
-                String prodPrice = split[3];
-                if (stockUpdate != null) {
-                    int updatedStock = stock;
-                    System.out.println("updated Stock is: " + updatedStock);
-                    line = idCode + "; " + prodNameUpdate + "; " + prodDescription + "; " + prodPrice + "; " + "4. Product Stock: " + updatedStock;
-                }
-
-            }
-            pw.println(line);
-            pw.flush();
-        }
-    }
-
-    private void priceUpdate(float price, BufferedReader br, String pID, PrintWriter pw) throws IOException {
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] split = line.split("; ");
-            String idCode = split[0];
-            if (idCode.equals(pID)) {
-                String stockUpdate = split[4];
-                String prodNameUpdate = split[1];
-                String prodDescription = split[2];
-                String prodPrice = split[3];
-                if (prodPrice != null) {
-                    float updatedPrice = price;
-                    System.out.println("updated Price is: " + updatedPrice);
-                    line = idCode + "; " + prodNameUpdate + "; " + prodDescription + "; " + "3. Product Price: " + updatedPrice + "; " + stockUpdate;
-                }
-
-            }
-            pw.println(line);
-            pw.flush();
-        }
+                + "1. Update your product name \n"
+                + "2. Update your product description \n"
+                + "3. Update your price \n"
+                + "4. Update your stock \n"
+                + "0. Go back to the main menu \n";
     }
 
     private void productNameUpdate(BufferedReader br, String pID, PrintWriter pw) throws IOException {
@@ -178,16 +144,18 @@ public class ProductsService {
         productName = console.nextLine();
         while ((line = br.readLine()) != null) {
             String[] split = line.split("; ");
-            String idCode = split[0];
-            if (idCode.equals(pID)) {
-                String stockUpdate = split[4];
-                String prodNameUpdate = split[1];
-                String prodDescription = split[2];
-                String prodPrice = split[3];
+            String idProductCode = split[0];
+            String lineUserId = split[1];
+            boolean condition = lineUserId.equals(accountID) && idProductCode.equals(pID);
+            if (condition) {
+                String prodNameUpdate = split[2];
+                String prodDescription = split[3];
+                String prodPrice = split[4];
+                String stockUpdate = split[5];
                 if (prodNameUpdate != null) {
                     String updatedName = productName;
                     System.out.println("Updated product name is: " + updatedName);
-                    line = idCode + "; " + "1. Product Name: " + updatedName + "; " + prodDescription + "; " + prodPrice + "; " + stockUpdate;
+                    line = idProductCode + "; " + lineUserId + "; " + updatedName + "; " + prodDescription + "; " + prodPrice + "; " + stockUpdate;
                 }
             }
             pw.println(line);
@@ -201,16 +169,18 @@ public class ProductsService {
         productDescription = console.nextLine();
         while ((line = br.readLine()) != null) {
             String[] split = line.split("; ");
-            String idCode = split[0];
-            if (idCode.equals(pID)) {
-                String stockUpdate = split[4];
-                String prodNameUpdate = split[1];
-                String prodDescription = split[2];
-                String prodPrice = split[3];
+            String idProductCode = split[0];
+            String lineUserId = split[1];
+            boolean condition = lineUserId.equals(accountID) && idProductCode.equals(pID);
+            if (condition) {
+                String prodNameUpdate = split[2];
+                String prodDescription = split[3];
+                String prodPrice = split[4];
+                String stockUpdate = split[5];
                 if (prodDescription != null) {
                     String updatedDescription = productDescription;
                     System.out.println("Updated product description is: " + updatedDescription);
-                    line = idCode + "; " + prodNameUpdate + "; " + "2. Product Description: " + updatedDescription + "; " + prodPrice + "; " + stockUpdate;
+                    line = idProductCode + "; " + lineUserId + "; " + prodNameUpdate + "; " + updatedDescription + "; " + prodPrice + "; " + stockUpdate;
                 }
 
             }
@@ -219,11 +189,68 @@ public class ProductsService {
         }
     }
 
+    private void priceUpdate(float price, BufferedReader br, String pID, PrintWriter pw) throws IOException {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] split = line.split("; ");
+            String idProductCode = split[0];
+            String lineUserId = split[1];
+            boolean condition = lineUserId.equals(accountID) && idProductCode.equals(pID);
+            if (condition) {
+                String prodNameUpdate = split[2];
+                String prodDescription = split[3];
+                String prodPrice = split[4];
+                String stockUpdate = split[5];
+                if (prodPrice != null) {
+                    float updatedPrice = price;
+                    System.out.println("updated Price is: " + updatedPrice);
+                    line = idProductCode + "; "+ lineUserId + "; " + prodNameUpdate + "; " + prodDescription + "; " + updatedPrice + "; " + stockUpdate;
+                }
+
+            }
+            pw.println(line);
+            pw.flush();
+        }
+    }
+
+    private void stockUpdate(int stock, BufferedReader br, String pID, PrintWriter pw) throws IOException {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] split = line.split("; ");
+            String idProductCode = split[0];
+            String lineUserId = split[1];
+            boolean condition = lineUserId.equals(accountID) && idProductCode.equals(pID);
+            if (condition) {
+                String prodNameUpdate = split[2];
+                String prodDescription = split[3];
+                String prodPrice = split[4];
+                String stockUpdate = split[5];
+                if (stockUpdate != null) {
+                    int updatedStock = stock;
+                    System.out.println("updated Stock is: " + updatedStock);
+                    line = idProductCode + "; " + lineUserId + "; " + prodNameUpdate + "; " + prodDescription + "; " + prodPrice + "; " + updatedStock;
+                }
+
+            }
+            pw.println(line);
+            pw.flush();
+        }
+    }
+
+
     public void viewListProducts() throws IOException {
-        Path filePath = Paths.get("C:", "Users", "Dani", "Desktop", "EchipaAmazon", "amazon", "src", "resources", "Products.txt");
         List<String> lines = Files.readAllLines(filePath);
+        String fileUserID = String.valueOf(CurrentUser.get().getId());
         for (String line : lines) {
-            System.out.println(line + "\n");
+            String[] split = line.split("; ");
+            String idProduct = split[0];
+            String userId = split[1];
+            String prodNameUpdate = split[2];
+            String prodDescription = split[3];
+            String prodPrice = split[4];
+            String stockUpdate = split[5];
+            if (userId.equals(fileUserID))
+                System.out.println("Product ID: " + idProduct + " | " + "1. Product Name: " + prodNameUpdate + " | " + "2. Product Description: " + prodDescription + " | " + "3. Product Price: " + prodPrice + " | " + "4. Product Stock: " + stockUpdate);
         }
     }
 }

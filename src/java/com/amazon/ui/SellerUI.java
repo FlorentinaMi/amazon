@@ -9,48 +9,45 @@ public class SellerUI {
 
     public void run() throws IOException {
 
+        ProductsService productsService = new ProductsService();
+        LandingPageUI landingPageUI = new LandingPageUI();
+
         while (true) {
             System.out.println(buildMenuUI());
-            int option = readInt();
+            Scanner console = new Scanner(System.in);
+            System.out.println("Choose a number from the list: ");
+            int option = console.nextInt();
             switch (option) {
                 case 1:
-                    System.out.println("Add a product be completing the required information");
-                    ProductsService productsService1 = new ProductsService();
-                    productsService1.addProducts();
+                    System.out.println("Add a product by completing the required information");
+                    productsService.addProducts();
                     break;
                 case 2:
                     System.out.println("Update your product");
-                    ProductsService productsService2 = new ProductsService();
-                    productsService2.productUpdate();
+                    productsService.productUpdate();
                     break;
                 case 3:
                     System.out.println("Delete your product");
-                    ProductsService productsService3 = new ProductsService();
-                    productsService3.deleteProduct();
+                    productsService.deleteProduct();
                     break;
                 case 4:
                     System.out.println("View all your listed products");
-                    ProductsService productsService4 = new ProductsService();
-                    productsService4.viewListProducts();
+                    productsService.viewListProducts();
                     break;
                 case 0:
-                    System.out.println("Log out!");
+                    System.err.println("Log out!");
+                    landingPageUI.selectOption();
                     break;
             }
         }
     }
 
-    private static int readInt() {
-        Scanner keyboard = new Scanner(System.in);
-        System.out.println("enter an integer");
-        return keyboard.nextInt();
-    }
 
     private static String buildMenuUI() {
-        return "Welcome to Amazon, you are logged as a seller, let sell something! \n"
+        return "Welcome to AmaZon, you are logged in as a seller, let's sell something! \n"
                 + "1. Add a product to sell \n"
-                + "2. Update existing products for selling \n"
-                + "3. Delete existing products for selling \n"
+                + "2. Update existing products for sell \n"
+                + "3. Delete existing products for sell \n"
                 + "4. View your listed products for sell \n"
                 + "0. Exit \n";
     }

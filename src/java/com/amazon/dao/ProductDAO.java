@@ -1,6 +1,7 @@
 package com.amazon.dao;
 
 import com.amazon.model.Product;
+import com.amazon.security.CurrentUser;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,19 +12,19 @@ import java.nio.file.StandardOpenOption;
 
 public class ProductDAO {
 
-    private Path productSequenceFile = Paths.get("src/resources/ProductSequel.txt");
+    private Path filePath = Paths.get("src/resources/Products.txt");
+    private Path productSequenceFile = Paths.get("src/resources/ProductSequence.txt");
 
     public void saveProduct(Product product) throws IOException {
-        Path filePath = Paths.get("src/resources/Products.txt");
         Files.write(filePath, productFileFormat(product).getBytes(), StandardOpenOption.APPEND);
         System.out.println(filePath + " Content was added");
     }
 
     public String productFileFormat(Product product) throws IOException {
-        return "\n" + "Product ID: A" + getNewId() + product.getId() + "; " + "1. Product Name: " + product.getName() + "; " + "2. Product Description: " + product.getDescription() + "; " + "3. Product Price: " + product.getPrice() + "; " + "4. Product Stock: " + product.getStock();
+        return "\n"  + getNewProductId() + "; " + CurrentUser.get().getId() + "; " + product.getName() + "; " + product.getDescription() + "; " + product.getPrice() + "; " + product.getStock();
     }
 
-    public String getNewId() throws IOException {
+    public String getNewProductId() throws IOException {
         String newId;
         String oldId = Files.readString(productSequenceFile);
         newId = String.valueOf(Integer.parseInt(oldId) + 1);

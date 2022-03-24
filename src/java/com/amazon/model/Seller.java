@@ -6,4 +6,8 @@ public class Seller extends User {
         super(userEmail, password, address, role);
     }
 
+    public Seller(int idData, String username, String password, String address, String accountTypeData) {
+        super(idData, username, password, address, accountTypeData);
+    }
+
 }

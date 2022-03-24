@@ -12,7 +12,14 @@ public abstract class User {
         this.password = password;
         this.address = address;
         this.role = role;
+    }
 
+    public User(int id, String userEmail, String password, String address, String role) {
+        this.id = id;
+        this.userEmail = userEmail;
+        this.password = password;
+        this.address = address;
+        this.role = role;
     }
 
     public int getId() {
